@@ -1,17 +1,23 @@
 package money
 
-type Dollar struct {
-	Money int
+type Accessor interface {
+	Amount() int
+	Name() string
 }
 
-func NewDollar(amount int) *Dollar {
-	return &Dollar{amount}
+type Money struct {
+	amount int
+	name   string
 }
 
-func (d *Dollar) times(multiplier int) *Dollar {
-	return NewDollar(d.Money * multiplier)
+func (m Money) Equals(a Accessor) bool {
+	return m.Amount() == a.Amount() && m.Name() == a.Name()
 }
 
-func (d *Dollar) equals(other *Dollar) bool {
-	return d.Money == other.Money
+func (m Money) Amount() int {
+	return m.amount
+}
+
+func (m Money) Name() string {
+	return m.name
 }
