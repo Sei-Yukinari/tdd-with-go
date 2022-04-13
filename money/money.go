@@ -3,15 +3,21 @@ package money
 type Accessor interface {
 	Amount() int
 	Name() string
+	Currency() string
 }
 
 type Money struct {
-	amount int
-	name   string
+	amount   int
+	name     string
+	currency string
 }
 
 func (m *Money) Times(multiplier int) *Money {
-	return &Money{amount: m.amount * multiplier, name: m.name}
+	return &Money{
+		amount:   m.amount * multiplier,
+		name:     m.name,
+		currency: m.currency,
+	}
 }
 
 func (m Money) Equals(a Accessor) bool {
@@ -24,4 +30,8 @@ func (m Money) Amount() int {
 
 func (m Money) Name() string {
 	return m.name
+}
+
+func (m Money) Currency() string {
+	return m.currency
 }

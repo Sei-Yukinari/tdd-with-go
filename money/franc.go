@@ -5,5 +5,9 @@ type Franc struct {
 }
 
 func NewFranc(amount int) *Money {
-	return &Money{amount, "Franc"}
+	return &Money{
+		amount,
+		"Franc",
+		"CHF",
+	}
 }

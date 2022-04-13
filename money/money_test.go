@@ -24,4 +24,8 @@ func TestMultiCurrencyMoney(t *testing.T) {
 	t.Run("Same amount of dollar and franc are not equivalent", func(t *testing.T) {
 		assert.False(t, NewDollar(5).Equals(NewFranc(5)))
 	})
+	t.Run("test Currency", func(t *testing.T) {
+		assert.Equal(t, "USD", NewDollar(1).Currency())
+		assert.Equal(t, "CHF", NewFranc(1).Currency())
+	})
 }
