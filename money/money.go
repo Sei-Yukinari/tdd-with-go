@@ -35,3 +35,19 @@ func (m Money) Name() string {
 func (m Money) Currency() string {
 	return m.currency
 }
+
+func Dollar(amount int) *Money {
+	return &Money{
+		amount,
+		"Dollar",
+		"USD",
+	}
+}
+
+func Franc(amount int) *Money {
+	return &Money{
+		amount,
+		"Franc",
+		"CHF",
+	}
+}
