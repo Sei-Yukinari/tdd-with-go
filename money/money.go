@@ -10,6 +10,10 @@ type Money struct {
 	name   string
 }
 
+func (m *Money) Times(multiplier int) *Money {
+	return &Money{amount: m.amount * multiplier, name: m.name}
+}
+
 func (m Money) Equals(a Accessor) bool {
 	return m.Amount() == a.Amount() && m.Name() == a.Name()
 }
