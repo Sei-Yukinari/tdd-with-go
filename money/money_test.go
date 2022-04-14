@@ -62,4 +62,12 @@ func TestMultiCurrencyMoney(t *testing.T) {
 		result := bank.Reduce(NewFranc(2), "USD")
 		assert.Equal(t, NewDollar(1), result)
 	})
+	t.Run("Mixed addition", func(t *testing.T) {
+		fiveBucks := NewDollar(5)
+		tenFrancs := NewFranc(10)
+		bank := NewBank()
+		bank.AddRate("CHF", "USD", 2)
+		result := bank.Reduce(fiveBucks.Plus(tenFrancs), "USD")
+		assert.Equal(t, NewDollar(10), result)
+	})
 }
