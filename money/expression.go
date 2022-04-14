@@ -2,6 +2,7 @@ package money
 
 type Expression interface {
 	Plus(Expression) Expression
+	Times(int) Expression
 	reduce(bank Bank, to string) Money
 }
 
@@ -10,8 +11,12 @@ type Sum struct {
 	addend Expression
 }
 
-func (s Sum) Plus(expression Expression) Expression {
-	return nil
+func (s Sum) Plus(e Expression) Expression {
+	return NewSum(s, e)
+}
+
+func (s Sum) Times(multiplier int) Expression {
+	return NewSum(s.augend.Times(multiplier), s.addend.Times(multiplier))
 }
 
 func NewSum(augend, addend Expression) Sum {
