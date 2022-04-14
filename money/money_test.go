@@ -28,4 +28,27 @@ func TestMultiCurrencyMoney(t *testing.T) {
 		assert.Equal(t, "USD", Dollar(1).Currency())
 		assert.Equal(t, "CHF", Franc(1).Currency())
 	})
+	t.Run("simple addition", func(t *testing.T) {
+		five := Dollar(5)
+		sum := five.Plus(five)
+		reduced := Bank{}.Reduce(sum, "USD")
+		assert.Equal(t, Dollar(10), reduced)
+	})
+	t.Run("plus returns sum", func(t *testing.T) {
+		five := Dollar(10)
+		result := five.Plus(five)
+		s, ok := result.(Sum)
+		assert.True(t, ok)
+		assert.Equal(t, five, s.augend)
+		assert.Equal(t, five, s.addend)
+	})
+	t.Run("reduce sum", func(t *testing.T) {
+		sum := Bank{}.Reduce(
+			NewSum(
+				Dollar(3), Dollar(4),
+			),
+			"USD",
+		)
+		assert.Equal(t, Dollar(7), sum)
+	})
 }
