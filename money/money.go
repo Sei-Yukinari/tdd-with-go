@@ -10,6 +10,13 @@ type Money struct {
 	currency string
 }
 
+func NewMoney(amount int, currency string) Money {
+	return Money{
+		amount:   amount,
+		currency: currency,
+	}
+}
+
 func (m Money) Times(multiplier int) Money {
 	return Money{
 		amount:   m.amount * multiplier,
@@ -33,14 +40,18 @@ func (m Money) Plus(a Money) Expression {
 	return NewSum(m, a)
 }
 
-func Dollar(amount int) Money {
+func (m Money) reduce(b Bank, to string) Money {
+	return NewMoney(m.amount/b.Rate(m.currency, to), to)
+}
+
+func NewDollar(amount int) Money {
 	return Money{
 		amount,
 		"USD",
 	}
 }
 
-func Franc(amount int) Money {
+func NewFranc(amount int) Money {
 	return Money{
 		amount,
 		"CHF",
